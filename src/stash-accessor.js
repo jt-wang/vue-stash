@@ -3,21 +3,21 @@ export default function(key) {
         get() {
             return key.split('.').reduce((pValue, cValue) => {
                 return pValue[cValue];
-            }, this.$root.store)
+            }, this.$root.stash)
         },
 
         set(value) {
             var path = key.split('.');
             var length = path.length - 1;
-            var store = this.$root.store;
+            var stash = this.$root.stash;
 
             for (var i = 0; i < length; i++) {
-                if (store.hasOwnProperty(path[i])) {
-                    store = store[path[i]];
+                if (stash.hasOwnProperty(path[i])) {
+                    stash = stash[path[i]];
                 }
             }
 
-            store[path[i]] = value;
+            stash[path[i]] = value;
         }
     }
 }
