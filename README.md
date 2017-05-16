@@ -27,14 +27,14 @@ require('vue-stash');
 
 ## Usage
 
-##### 1.) Initialize your store object.
-Your store object is nothing more than a simple Javascript object set within your root vue model's `$data` option; Think of it as your "shared data option". Make sure you pre-initialize any properties that you want to be reactive, just like always.
+##### 1.) Initialize your stash object.
+Your stash object is nothing more than a simple Javascript object set within your root vue model's `$data` option; Think of it as your "shared data option". Make sure you pre-initialize any properties that you want to be reactive, just like always.
 
 ```js
 new Vue({
     el: '#app',
     data: {
-        store: {
+        stash: {
             user: {
                 name: 'cody'
             }
@@ -43,17 +43,17 @@ new Vue({
 })
 ```
 
-_Alternatively, you can import your store from another file._
+_Alternatively, you can import your stash from another file._
 ```js
-import store from './store';
+import stash from './stash';
 
 new Vue({
     el: '#app',
-    data: { store }
+    data: { stash }
 })
 ```
 
-_store.js_
+_stash.js_
 ```js
 export default {
     user: {
@@ -62,12 +62,12 @@ export default {
 }
 ```
 
-##### 2.) Add a "store" option to any child components that need to access data from the store.
+##### 2.) Add a "stash" option to any child components that need to access data from the stash.
 
 *Example 1: Simplest usage*
 ```js
 Vue.component('user-card', {
-    store: ['user'],
+    stash: ['user'],
     ready() {
         console.log(this.user.name); // 'cody'
         this.user.name = 'john doe';
@@ -76,11 +76,11 @@ Vue.component('user-card', {
 });
 ```
 
-*Example 2: Object store*
+*Example 2: Object stash*
 
 ```js
 Vue.component('user-card', {
-    store: {
+    stash: {
         user: 'user'
     },
     ready() {
@@ -91,11 +91,11 @@ Vue.component('user-card', {
 });
 ```
 
-*Example 3: Access nested store property*
+*Example 3: Access nested stash property*
 
 ```js
 Vue.component('user-card', {
-    store: {
+    stash: {
         name: 'user.name'
     },
     ready() {
@@ -106,11 +106,11 @@ Vue.component('user-card', {
 });
 ```
 
-*Example 4: Dynamic store access*
+*Example 4: Dynamic stash access*
 
 ```js
 Vue.component('user-card', {
-    store: {
+    stash: {
         name() {
             return 'user.name';
         }
@@ -125,14 +125,14 @@ Vue.component('user-card', {
 
 *Note: The end result of examples 1-4 are equivalent.*
 
-##### 3.) Access the store directly.
-This plugin sets `Vue.prototype.$store` which allows any component to access the store via `vm.$store`.
+##### 3.) Access the stash directly.
+This plugin sets `Vue.prototype.$stash` which allows any component to access the stash via `vm.$stash`.
 ```js
 Vue.component('user-card', {
     ready() {
-        console.log(this.$store.user.name); // 'cody';
-        this.$store.user.name = 'john doe';
-        console.log(this.$store.user.name); // 'john doe';
+        console.log(this.$stash.user.name); // 'cody';
+        this.$stash.user.name = 'john doe';
+        console.log(this.$stash.user.name); // 'john doe';
     }
 });
 ```
